@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>茗门爱分享在线搜题系统 - 茗门爱分享 -晚空</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.js"></script>
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <script src="https://cdn.staticfile.org/font-awesome/5.13.0/js/all.js"></script>
+    <meta name="author" content="晚空,QQ:1549072621">
+    <meta name="description" content="茗门爱分享在线搜题系统是基于大数据的人工智能算法研发而成的题库,拥有全网最全的网课题库,助你查题无忧。">
+    <meta name="keywords" content="网课答案,茗门爱分享,茗门,晚空,mmifx,网课题库,超星答案,学习通答案,课后答案,习题答案,超星,超星雅尔,智慧树">
+    <script src="lib/layui/layui.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+
+<body>
+    <header class="main_header">
+        <a href=""> <img src="https://www.mmifx.com/logo.png" alt=""></a>
+        <p>可能是最棒的在线搜题系统！</p>
+        <p>由<a href="https://www.mmifx.com" target="_blank">茗门爱分享</a>提供！</p>
+    </header>
+    <main>
+        <div id="app" class="main_box">
+            <div class="main_input">
+                <input v-model="question" placeholder="请在这里输入您的问题" class="layui-input" @keyup.13="ToSearch">
+                <button @click="ToSearch" class="layui-btn layui-btn-radius layui-btn-normal"><i
+                        class="fa fa-search"></i></button>
+            </div>
+            <div class="main_res">
+                <div class="res_box" v-for="(item, index) in result.msg" :key="item.id" @click="addactive">
+                    <h4 class="title">
+                        {{index}}<i class="fa fa-arrow-right"></i><i class="fa fa-arrow-down"></i>{{item.question}}
+                    </h4>
+                    <div class="content">
+                        <p>{{item.answer}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer><i class="fa fa-copyright" aria-hidden="true"></i><a target="_blank" href="https://www.mmifx.com">茗门爱分享</a>.
+        2015-2020.All rights reserved.
+        <!-- 给个友链好吧 -->
+        <a target="_blank" href="https://www.mmifx.com">茗门爱分享</a>技术支持
+        <!-- 站长统计 -->
+        <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1278816880&web_id=1278816880"></script>
+    </footer>
+    <script>
+        layui.use('layer', function () {});
+        // Vue调用
+        var Vm = new Vue({
+            el: '#app',
+            data: {
+                question: "",
+                msg: "",
+                Show: false,
+                result: {
+                    "code": 1,
+                    "msg": [{
+                        "question": "第一次使用？点我查看使用帮助",
+                        "answer": ""
+                    }]
+                },
+            },
+            methods: {
+                ToSearch() {
+                    let _this = this;
+                    // 判断问题是否为空
+                    if (_this.question == "") {
+                        layer.msg('您还没输入问题呢！', function () {});
+                        // alert("您还没有输入问题！搜个锤子啊！");
+                    } else {
+                        _this.GetAnswer(_this.question);
+                    }
+                },
+                GetAnswer(question) {
+                    let _this = this;
+                    //开始加载loading动画
+                    layer.load();
+                    // 调用axios进行GET访问；
+                    axios.get('lib/get.php', {
+                            params: {
+                                question: question
+                            }
+                        })
+                        .then(function (response) {
+                            _this.result = response.data;
+                            layer.closeAll('loading');
+                            //关闭loading动画
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                },
+                addactive(id) {
+                    let _this = this;
+                    var ress = document.querySelectorAll(".res_box")
+                    ress.forEach(res => {
+                        res.addEventListener("click", () => {
+                            _this.removeactive(ress);
+                            res.classList.add("active");
+                        })
+                    })
+                },
+                removeactive(ress) {
+                    ress.forEach(res => {
+                        res.classList.remove("active");
+                    })
+                }
+            }
+        })
+    </script>
+    <script>
+    </script>
+</body>
+
+</html>

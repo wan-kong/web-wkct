@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('http://img.mmifx.com/blog/20200430182751.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    white-space: wrap;
+    height: 100vh;
+    font-size: 1.3rem;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #DC143C;
+}
+
+.main_header {
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main_header p {
+    margin-top: 10px;
+}
+
+.main_header img {
+    width: 70%;
+    height: auto;
+}
+
+.main_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main_box .main_input {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.main_box .main_input input {
+    width: 70%;
+    border-radius: 2rem;
+    border: none;
+    margin-right: 3%;
+    border-bottom: 2px solid #000;
+}
+
+button:hover {
+    background-image: linear-gradient(135deg, #81FFEF 10%, #F067B4 100%);
+}
+
+.main_res {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main_res .res_box {
+    width: 80%;
+    margin: 2px;
+}
+
+footer {
+    font-size: 0.8rem;
+}
+
+.main_res {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.main_res .res_box {
+    border: none;
+    border-radius: 30px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: #ffffff60;
+}
+
+h4 {
+    font-size: 1.2rem;
+}
+
+.content {
+    padding: 3px;
+    font-size: 1rem;
+    width: 100%;
+    color: #000;
+}
+
+.res_box .content {
+    display: none;
+}
+
+.res_box .fa-arrow-down {
+    display: none;
+}
+
+.active {
+    margin-top: 50px;
+}
+
+.active .content {
+    display: inline;
+}
+
+.active .fa-arrow-right {
+    display: none;
+}
+
+.active .fa-arrow-down {
+    display: inline;
+}
+
+
+@media screen and (min-width: 1080px) {
+    .main_box .main_input input {
+        width: 50%;
+    }
+}
